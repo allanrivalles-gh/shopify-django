@@ -51,9 +51,6 @@ def send_user_info_to_database(db_path, user, email, table_name):
     conn.commit()
     conn.close()
 
-def log_activity(email, transaction):
-    logging.info(f"User info: Email: {email}, Transaction: {transaction}")
-
 def log_user_leaving(email, transaction):
     logging.info(f"User left: Email: {email}, Transaction: {transaction}")
 
