@@ -69,4 +69,12 @@ def check_user_info(user, email):
     # Placeholder for internal processing, such as validation or transformation
     if user and email:
         return True
+    
+import requests
+
+url = 'http://127.0.0.1:5000/predict'
+files = {'image': open('image.jpg', 'rb')}
+response = requests.post(url, files=files)
+
+print(response.json())  # Prints the predicted class
 
