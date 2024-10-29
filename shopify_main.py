@@ -78,3 +78,27 @@ response = requests.post(url, files=files)
 
 print(response.json())  # Prints the predicted class
 
+
+from langchain.agents import initialize_agent, AgentType
+from langchain.llms import OpenAI
+
+# Initialize the LLM
+llm = OpenAI(model="gpt-3.5-turbo")
+
+# Custom summary function
+def summarize_text(text):
+    response = llm.run(f"Please summarize the following text: {text}")
+    return response
+
+# Define the agent with custom functionality
+tools = [
+    {"name": "Summarizer", "description": "Summarizes provided text.", "func": summarize_text}
+]
+
+agent = initialize_agent(llm, tools, AgentType.ZERO_SHOT_REACT_DESCRIPTION)
+
+# Call the agent with text to summarize
+text_to_summarize = "Large language models (LLMs) are a type of artificial intelligence that..."
+summary_response = agent.run(f"Summarize this: {text_to_summarize}")
+print("Summary Response:", summary_response)
+
